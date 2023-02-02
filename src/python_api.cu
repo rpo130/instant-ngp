@@ -447,6 +447,8 @@ PYBIND11_MODULE(pyngp, m) {
 			"If the aabb parameter specifies an inside-out (\"empty\") box (default), the current render_aabb bounding box is used."
 		)
 		// Interesting members.
+		.def_readwrite("dex_nerf", &Testbed::m_dex_nerf)
+		.def_readwrite("sigma_thrsh", &Testbed::m_sigma_thrsh)
 		.def_readwrite("dynamic_res", &Testbed::m_dynamic_res)
 		.def_readwrite("dynamic_res_target_fps", &Testbed::m_dynamic_res_target_fps)
 		.def_readwrite("fixed_res_factor", &Testbed::m_fixed_res_factor)

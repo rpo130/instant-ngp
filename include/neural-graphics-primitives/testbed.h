@@ -187,6 +187,8 @@ public:
 			ERenderMode render_mode,
 			const Eigen::Matrix<float, 3, 4> &camera_matrix,
 			float depth_scale,
+			bool m_dex_nerf,
+			float m_sigma_thrsh,
 			int visualized_layer,
 			int visualized_dim,
 			ENerfActivation rgb_activation,
@@ -549,6 +551,8 @@ public:
 
 	// Rendering stuff
 	Eigen::Vector2i m_window_res = Eigen::Vector2i::Constant(0);
+	bool m_dex_nerf = false;
+	float m_sigma_thrsh = 15.0f;
 	bool m_dynamic_res = true;
 	float m_dynamic_res_target_fps = 20.0f;
 	int m_fixed_res_factor = 8;

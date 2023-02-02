@@ -981,6 +981,9 @@ void Testbed::imgui() {
 		}
 		ImGui::PopItemWidth();
 
+		ImGui::Checkbox("Dex-NeRF", &m_dex_nerf);
+		ImGui::SliderFloat("Sigma threshold", &m_sigma_thrsh, 0.0f, 100.0f);
+
 		accum_reset |= ImGui::Combo("Render mode", (int*)&m_render_mode, RenderModeStr);
 		accum_reset |= ImGui::Combo("Tonemap curve", (int*)&m_tonemap_curve, TonemapCurveStr);
 		accum_reset |= ImGui::ColorEdit4("Background", &m_background_color[0]);
