@@ -58,4 +58,4 @@ def gen_test(basedir):
 # convert('./data/nerf/avt_data_glass_light_20230115_1/')
 # gen_test('./data/nerf/avt_data_glass_light_20230115_1/')
 
-convert('./data/nerf/avt_data_glass_20230118_1_crop5-8_sel/')
+convert('./data/nerf/avt_data_glass_20230204_8/')
