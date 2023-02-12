@@ -44,13 +44,13 @@ def depth_est(scene_config_file, depth_dir="depth", sigma_thrsh=15, snapshot_fil
 	print("Loading snapshot ", snapshot_file)
 	testbed.load_snapshot(snapshot_file)
 
-	testbed.nerf.sharpen = float(0)
-	testbed.exposure = float(0)
+	# testbed.nerf.sharpen = float(0)
+	# testbed.exposure = float(0)
 	testbed.shall_train = False
 
 	testbed.nerf.render_with_camera_distortion = True
 	testbed.snap_to_pixel_centers = True
-	spp = 8
+	spp = 1
 	testbed.nerf.rendering_min_transmittance = 1e-4
 	testbed.fov_axis = 0
 	testbed.fov = camera_angle_x * 180 / np.pi
@@ -64,17 +64,23 @@ def depth_est(scene_config_file, depth_dir="depth", sigma_thrsh=15, snapshot_fil
 	# Set camera matrix
 	for img_name, c2w_matrix in zip(img_names, poses):
 		testbed.set_nerf_camera_matrix(np.matrix(c2w_matrix)[:-1, :])
+
 		testbed.dex_nerf = True
 		# Render estimated depth
 		print(f'rendering dex {img_name}')
 		image = testbed.render(width, height, spp, True)  # raw depth values (float, in m)
-		write_image(os.path.join(dex_depth_dir_abs, img_name), image)
+		# write_image(os.path.join(dex_depth_dir_abs, img_name), image)
+		depth = 1000 * image[..., 0]  # transform depth to mm
+		depth = depth.astype(np.uint16)
+		cv2.imwrite(os.path.join(dex_depth_dir_abs, img_name), depth)
 
 		testbed.dex_nerf = False
-		# testbed.set_nerf_camera_matrix(np.matrix(c2w_matrix)[:-1, :])
 		print(f'rendering {img_name}')
 		image = testbed.render(width, height, spp, True)  # raw depth values (float, in m)
-		write_image(os.path.join(depth_dir_abs, img_name), image)
+		# write_image(os.path.join(depth_dir_abs, img_name), image)
+		depth = 1000 * image[..., 0]  # transform depth to mm
+		depth = depth.astype(np.uint16)
+		cv2.imwrite(os.path.join(depth_dir_abs, img_name), depth)
 
 	ngp.free_temporary_memory()
 
