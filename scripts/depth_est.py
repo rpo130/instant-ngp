@@ -50,7 +50,7 @@ def depth_est(scene_config_file, depth_dir="depth", sigma_thrsh=15, snapshot_fil
 
 	testbed.nerf.render_with_camera_distortion = True
 	testbed.snap_to_pixel_centers = True
-	spp = 1
+	spp = 8
 	testbed.nerf.rendering_min_transmittance = 1e-4
 	testbed.fov_axis = 0
 	testbed.fov = camera_angle_x * 180 / np.pi
